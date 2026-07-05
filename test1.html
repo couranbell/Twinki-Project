@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Independent Bookstore in London</title>
+    <meta name="description" content="A static export of Nastusya Book News from WordPress.">
+    <link rel="stylesheet" href="test1.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-title" href="#top" aria-label="Nastusya Book News home">
+        <img class="site-logo" src="Images/BookRat.png" alt="">
+        <span class="logo-text">Independent Bookstore in London</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#posts">Main</a>
+        <a href="#gallery">Blog</a>
+        <a href="#about">Contacts</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section id="posts" class="hero" aria-labelledby="home-title">
+        <div class="hero-copy">
+          <p class="eyebrow">You favourite genre is here</p>
+          <h1 id="home-title">Bookstore with a tricky friend - Bookrat!</h1>
+          <p>
+            A special spot where you can enjoy the perfect combination of a wide selection of books, a close-knit community, and great fun! Take a look
+            at our bookstore's landing page to get to know us better.
+            <br><br>
+            Who knows - maybe you're the next bookrat?
+          </p>
+        </div>
+        <div class="hero-image-wrap">
+          <img
+            class="hero-image"
+            src="Images/main2.jpg"
+            alt="Bookstore scene"
+          >
+        </div>
+        <div class="main-info">
+          <img class="main-info-image" src="Images/main4.jpg" alt="Books inside the bookstore">
+          <div class="main-info-copy">
+            <p>
+              We are a relatively young and independent bookstore with a strong
+              ambition to unite people in these challenging times. Despite that,
+              of course, we offer a wide collection of books: from romance and
+              business to crime fiction and poetry, from memoirs to classic
+              literature, and more. So you can be sure that you won't leave
+              empty-handed.
+            </p>
+            <p>
+              However, visiting us just to drop by and ask "what's up" or how we
+              are doing is also worth it. Book presentations, author meetings, and
+              book club events take place regularly, so you can join our community
+              and make reading a meaningful part of your life! And that is exactly
+              our aim!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" class="section blog-section" aria-label="Blog">
+        <div class="book-slider" aria-label="Featured book pages">
+          <div class="book-track">
+            <article class="book-page">
+              <img src="Images/main9.jpg" alt="Featured book page">
+              <h3>The Bookstore Opening: How Did It Go?</h3>
+              <p>Our Big Start's just happened - don't miss any details!</p>
+            </article>
+
+            <article class="book-page">
+              <img src="Images/main10.jpg" alt="Featured book page">
+              <h3>The Rats' First Gathering - Book Club with Literary Scholars</h3>
+              <p>Comfortable talks and passionate disscussions!</p>
+            </article>
+
+            <article class="book-page">
+              <img src="Images/main11.png" alt="Featured book page">
+              <h3>TOP 20 Books We Highly Recommend - Bookrat Summer Reading List</h3>
+              <p>Soft stories, bright feeling, and warm pages for slow evenings.</p>
+            </article>
+
+            <article class="book-page">
+              <img src="Images/main12.jpg" alt="Featured book page">
+              <h3>Our New Arrivals: Bestsellers From Around The World!</h3>
+              <p>Books that will steal your heart and never let go.</p>
+            </article>
+
+            <article class="book-page">
+              <img src="Images/main13.png" alt="Featured book page">
+              <h3>20% OFF Every Second Book - On Everything In Store!</h3>
+              <p>To make your library bigger and more diverse.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="section about-section" aria-labelledby="contacts-title">
+        <div class="contact-intro">
+          <h2 id="contacts-title">Find us here, Bookrat!</h2>
+        </div>
+
+        <div class="contact-grid">
+          <address class="contact-card">
+            <h3>Location</h3>
+            <p>
+              39 Maple Lane<br>
+              London<br>
+              SW1A 1AA<br>
+              United Kingdom
+            </p>
+          </address>
+
+          <div class="contact-card">
+            <h3>Contact</h3>
+            <p>
+              <a href="tel:+441632960123">+44 1632 960 123</a><br>
+              <a href="mailto:bookrat@gmail.com">bookrat@gmail.com</a>
+            </p>
+          </div>
+
+          <div class="contact-card">
+            <h3>Follow us</h3>
+            <div class="social-links" aria-label="Social media links">
+              <a href="#">instagram</a>
+              <a href="#">threads</a>
+              <a href="#">tiktok</a>
+              <a href="#">facebook</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; 2026 all rights reserved</p>
+      <a href="#top">Back to top</a>
+    </footer>
+    <script>
+      const slider = document.querySelector(".book-slider");
+      const track = document.querySelector(".book-track");
+
+      if (slider && track) {
+        const originalSlides = Array.from(track.children);
+        const slideCount = originalSlides.length;
+        const beforeClones = originalSlides.map((slide) => slide.cloneNode(true));
+        const afterClones = originalSlides.map((slide) => slide.cloneNode(true));
+        let slideIndex = slideCount;
+        let startX = 0;
+        let baseTranslate = 0;
+        let isDragging = false;
+        let autoMove;
+
+        beforeClones.forEach((slide) => slide.setAttribute("aria-hidden", "true"));
+        afterClones.forEach((slide) => slide.setAttribute("aria-hidden", "true"));
+        track.prepend(...beforeClones);
+        track.append(...afterClones);
+
+        function slideStep() {
+          const slide = track.querySelector(".book-page");
+          const gap = parseFloat(window.getComputedStyle(track).gap) || 0;
+          return slide.getBoundingClientRect().width + gap;
+        }
+
+        function moveToSlide(animate = true) {
+          track.style.transition = animate ? "transform 360ms ease" : "none";
+          track.style.transform = `translateX(${-slideIndex * slideStep()}px)`;
+        }
+
+        function keepSlidesInRange() {
+          if (slideIndex >= slideCount && slideIndex < slideCount * 2) {
+            return;
+          }
+
+          slideIndex = ((slideIndex % slideCount) + slideCount) % slideCount + slideCount;
+          moveToSlide(false);
+        }
+
+        function startAutoMove() {
+          window.clearInterval(autoMove);
+          autoMove = window.setInterval(() => {
+            if (document.hidden) {
+              return;
+            }
+
+            keepSlidesInRange();
+            slideIndex += 1;
+            moveToSlide();
+          }, 3600);
+        }
+
+        function finishDrag(clientX) {
+          const dragDistance = clientX - startX;
+          isDragging = false;
+          slider.classList.remove("is-dragging");
+
+          if (dragDistance < -60) {
+            slideIndex += 1;
+          } else if (dragDistance > 60) {
+            slideIndex -= 1;
+          }
+
+          moveToSlide();
+          startAutoMove();
+        }
+
+        slider.addEventListener("pointerdown", (event) => {
+          isDragging = true;
+          startX = event.clientX;
+          baseTranslate = -slideIndex * slideStep();
+          slider.classList.add("is-dragging");
+          slider.setPointerCapture(event.pointerId);
+          window.clearInterval(autoMove);
+          track.style.transition = "none";
+        });
+
+        slider.addEventListener("pointermove", (event) => {
+          if (!isDragging) {
+            return;
+          }
+
+          const dragDistance = event.clientX - startX;
+          track.style.transform = `translateX(${baseTranslate + dragDistance}px)`;
+        });
+
+        slider.addEventListener("pointerup", (event) => {
+          if (isDragging) {
+            finishDrag(event.clientX);
+          }
+        });
+
+        slider.addEventListener("pointercancel", (event) => {
+          if (isDragging) {
+            finishDrag(event.clientX);
+          }
+        });
+
+        track.addEventListener("transitionend", () => {
+          if (slideIndex < slideCount) {
+            slideIndex += slideCount;
+            moveToSlide(false);
+          }
+
+          if (slideIndex >= slideCount * 2) {
+            slideIndex -= slideCount;
+            moveToSlide(false);
+          }
+        });
+
+        window.addEventListener("resize", () => moveToSlide(false));
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) {
+            window.clearInterval(autoMove);
+            return;
+          }
+
+          keepSlidesInRange();
+          startAutoMove();
+        });
+
+        moveToSlide(false);
+        startAutoMove();
+      }
+    </script>
+  </body>
+</html>
