@@ -2,4 +2,4 @@ User-agent: *
 
 Allow: /
 
-Sitemap: https://couranbell.github.io/Twinki-Project/sitemap.xml
+Sitemap: https://couranbell.github.io/Bookrat/sitemap.xml
